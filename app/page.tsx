@@ -1,23 +1,50 @@
-import Image from 'next/image'
+'use client'
+
+const test1Cookie = (name: string) => {
+  fetch(`https://test1.yixuanxu.com/cookie/test1${name}`, {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify({ name }),
+  })
+}
+
+const test2Cookie = (name: string) => {
+  fetch(`https://test2.yixuanxu.com/cookie/test2${name}`, {
+    credentials: 'include',
+    method: 'POST',
+    body: JSON.stringify({ name }),
+  })
+}
+
+const localCookie = (name: string) => {
+  fetch(`/cookie${name}`, {
+    credentials: 'include',
+    method: 'POST',
+    body: JSON.stringify({ name }),
+  })
+}
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-       
+        <div>Test 1 cookie</div>
+        <button onClick={() => test1Cookie('/lax')}>Lax</button>
+        <button onClick={() => test1Cookie('/strict')}>Strict</button>
+        <button onClick={() => test1Cookie('/none')}>None</button>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
+        <div>Test 2 cookie</div>
+        <button onClick={() => test2Cookie('/lax')}>Lax</button>
+        <button onClick={() => test2Cookie('/strict')}>Strict</button>
+        <button onClick={() => test2Cookie('/none')}>None</button>
       </div>
-
+      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
+        <div>Local cookie</div>
+        <button onClick={() => localCookie('/lax')}>Lax</button>
+        <button onClick={() => localCookie('/strict')}>Strict</button>
+        <button onClick={() => localCookie('/none')}>None</button>
+      </div>
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
       
       </div>
