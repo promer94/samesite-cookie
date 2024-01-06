@@ -6,9 +6,9 @@ import { handle } from 'hono/vercel'
 const app = new Hono()
 
 app.use('*',(c, next) => {
-  const hostname = new URL(c.req.url).origin
+  const hostname = c.req.header('Origin')
   return cors({
-    origin: hostname,
+    origin: hostname || '',
     credentials: true,
     allowMethods: ['GET', 'POST','OPTIONS'],
   })(c, next)
